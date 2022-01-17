@@ -13,7 +13,7 @@ const App = () => {
   const [salaryLoading, setSalaryLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    setEmployeesData(timesheetGenerator(5));
+    setEmployeesData(timesheetGenerator(50));
   }, []);
 
   useEffect(() => {
