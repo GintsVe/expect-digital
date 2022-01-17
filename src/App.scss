@@ -1,0 +1,48 @@
+.header {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+  padding: 50px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.main {
+  background-color: white;
+}
+
+.week-timesheet {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-block: 10px;
+}
+
+.weekday {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.footer {
+  font-weight: 500;
+  padding-block: 40px 20px;
+  width: 250px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.footer__text-box {
+  display: flex;
+  justify-content: space-between;
+}

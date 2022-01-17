@@ -1,0 +1,56 @@
+.day-field-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field {
+  border: 2px solid #6750A4;
+  border-radius: 4px;
+  width: 120px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  color: #6750A4;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin: 0 10px;
+  padding: 0 4px;
+}
+
+.hours {
+  color: #1C1B1F;
+  text-align: center;
+  padding-top: 13px;
+}
+
+.button {
+  border: none;
+  background: #E8DEF8;
+  border-radius: 8px;
+  padding: 0 20px;
+  height: 40px;
+}
+
+.input {
+  width: 50px;
+  height: 40px;
+  text-align: center;
+}
+
+.salary {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
