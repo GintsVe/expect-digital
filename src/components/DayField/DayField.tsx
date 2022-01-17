@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import './DayField.scss';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { randomNumber } from '../../utils/randomNumber/randomNumber';
 
 type DayFieldsProps = {
   day: string,
@@ -26,7 +27,7 @@ const DayField:FC<DayFieldsProps> = ({
 
     setTimeout(() => {
       setSalaryLoading(false);
-    }, Math.floor(Math.random() * (1000 - 250)) + 250);
+    }, randomNumber(1000, 250));
   }, [hours, salary, employeeName, week]);
 
   const closeInput = () => {
@@ -35,14 +36,16 @@ const DayField:FC<DayFieldsProps> = ({
 
   const ref = useDetectClickOutside({ onTriggered: closeInput });
 
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value >= 0 && +e.target.value <= 24) {
-      setInputValue(+e.target.value);
+  const inputChangeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(target.value);
+
+    if (value >= 0 && value <= 24) {
+      setInputValue(value);
     }
   };
 
   const changeHoursHandler = () => {
-    changeHrs(day.toLowerCase(), inputValue);
+    changeHrs(day, inputValue);
     setChangeHours(false);
   };
 
@@ -61,21 +64,18 @@ const DayField:FC<DayFieldsProps> = ({
           className="field"
         >
           <legend className="title">{day}</legend>
-          {
-            !changeHours
-              ? <span className="hours">{hours}</span>
-              : (
-                <input
-                  className="input"
-                  type="number"
-                  onChange={inputChangeHandler}
-                  value={inputValue}
-                />
-              )
-          }
+          {!changeHours
+            ? <span className="hours">{hours}</span>
+            : (
+              <input
+                className="input"
+                type="number"
+                onChange={inputChangeHandler}
+                value={inputValue}
+              />
+            )}
         </fieldset>
-        {
-          changeHours
+        {changeHours
           && (
             <button
               onClick={changeHoursHandler}
@@ -84,21 +84,18 @@ const DayField:FC<DayFieldsProps> = ({
             >
               Save
             </button>
-          )
-        }
+          )}
       </div>
       <div>
-        {
-          salaryLoading ? <LoadingSpinner />
-            : (
-              <span className="salary">
-                €
-                {
-                  salary.toFixed(2)
-                }
-              </span>
-            )
-        }
+        {salaryLoading ? <LoadingSpinner />
+          : (
+            <span className="salary">
+              €
+              {
+                salary.toFixed(2)
+              }
+            </span>
+          )}
       </div>
     </div>
   );

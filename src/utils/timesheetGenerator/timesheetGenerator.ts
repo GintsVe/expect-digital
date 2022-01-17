@@ -1,5 +1,10 @@
-import moment from 'moment';
+import startOfWeek from 'date-fns/startOfWeek';
+import endOfWeek from 'date-fns/endOfWeek';
+import addDays from 'date-fns/addDays';
+import { format } from 'date-fns';
 import names from '../../data/names';
+import weekdays from '../../data/weekdays';
+import { randomNumber, randomUniqueNumbers } from '../randomNumber/randomNumber';
 
 export type TimesheetType = {
   week: string,
@@ -16,57 +21,43 @@ export type EmployeeType = {
 
 export const getWeeks = () => {
   const allWeeks = [];
-  const startOfThisWeek = moment().startOf('isoWeek');
-  const endOfThisWeek = moment().endOf('isoWeek');
+  const startOfThisWeek = startOfWeek(new Date(), { weekStartsOn: 1 });
+  const endOfThisWeek = endOfWeek(new Date(), { weekStartsOn: 1 });
 
   for (let x = 0; x < 5; x += 1) {
-    const startOfWeek = startOfThisWeek.add((x === 0 ? 0 : -7), 'day').format('D MMM YYYY');
-    const endOfWeek = endOfThisWeek.add((x === 0 ? 0 : -7), 'day').format('D MMM YYYY');
+    const startOfPreviousWeek = format(addDays(startOfThisWeek, -7 * x), 'd MMM yyyy');
+    const endOfPreviousWeek = format(addDays(endOfThisWeek, -7 * x), 'd MMM yyyy');
 
-    allWeeks.push(`${startOfWeek} - ${endOfWeek}`);
+    allWeeks.push(`${startOfPreviousWeek} - ${endOfPreviousWeek}`);
   }
 
   return allWeeks;
 };
 
-const randomUniqueNumbers = (amount: number, min: number, max: number) => {
-  const numbers = [];
-  while (numbers.length < amount) {
-    const randomNumber = Math.floor(Math.random() * (max - min) + min);
-    if (numbers.indexOf(randomNumber) === -1) numbers.push(randomNumber);
-  }
-  return numbers;
-};
-
-export const timesheetGenerator = (amount: number) => {
+export const timesheetGenerator = (amount: number): EmployeeType[] => {
   const employeesData = [];
-  const number = randomUniqueNumbers(amount, 0, names.length);
-
-  const randomIntegerFrom5To40 = () => Math.floor(Math.random() * 36) + 5;
-  const randomIntegerFrom0To8 = () => Math.floor(Math.random() * 9);
+  const numbers = randomUniqueNumbers(amount, 0, names.length);
 
   for (let x = 0; x < amount; x += 1) {
     const timeSheet = [];
 
     for (let y = 0; y < getWeeks().length; y += 1) {
+      const daysAndHours = {};
+
+      weekdays.forEach((day) => {
+        Object.assign(daysAndHours, { [day]: randomNumber(8, 0) });
+      });
+
       timeSheet.push({
         week: getWeeks()[y],
-        weekdays: {
-          monday: randomIntegerFrom0To8(),
-          tuesday: randomIntegerFrom0To8(),
-          wednesday: randomIntegerFrom0To8(),
-          thursday: randomIntegerFrom0To8(),
-          friday: randomIntegerFrom0To8(),
-          saturday: randomIntegerFrom0To8(),
-          sunday: randomIntegerFrom0To8(),
-        },
+        weekdays: daysAndHours,
       });
     }
 
     employeesData.push(
       {
-        name: names[number[x]],
-        hourlyRate: randomIntegerFrom5To40(),
+        name: names[numbers[x]],
+        hourlyRate: randomNumber(40, 5),
         timesheet: timeSheet,
       },
     );

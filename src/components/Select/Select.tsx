@@ -18,6 +18,12 @@ const Select:FC<SelectProps> = ({ list, title, onSelect }) => {
 
   const ref = useDetectClickOutside({ onTriggered: closeDropdown });
 
+  const selectNewItemHandler = (item: string) => {
+    setSelectedValue(item);
+    closeDropdown();
+    onSelect(item);
+  };
+
   return (
     <div>
       <fieldset ref={ref} className="select-wrapper">
@@ -36,29 +42,22 @@ const Select:FC<SelectProps> = ({ list, title, onSelect }) => {
         </div>
         {dropdown && (
         <div className="select-list">
-          {
-            list.map((item) => (
-              <div key={item}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedValue(item);
-                    setDropdown(false);
-                    onSelect(item);
-                  }}
-                  className="select-list__item"
-                  style={selectedValue === item ? { backgroundColor: 'rgba(103, 80, 164, 0.12)' } : {}}
-                >
-                  {item}
-                </button>
-              </div>
-            ))
-          }
+          {list.map((item) => (
+            <div key={item}>
+              <button
+                type="button"
+                onClick={() => selectNewItemHandler(item)}
+                className="select-list__item"
+                style={selectedValue === item ? { backgroundColor: 'rgba(103, 80, 164, 0.12)' } : {}}
+              >
+                {item}
+              </button>
+            </div>
+          ))}
         </div>
         )}
       </fieldset>
     </div>
-
   );
 };
 export default Select;
