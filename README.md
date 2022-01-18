@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Technical task - Timesheet entries
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Users can select a timesheet filtered by an employee name and a week, and edit hours worked for selected employee and week.
+
+---
 
 ## Available Scripts
 

@@ -17,6 +17,10 @@
   height: 60px;
   display: flex;
   justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .title {
@@ -40,6 +44,11 @@
   border-radius: 8px;
   padding: 0 20px;
   height: 40px;
+
+  &:hover {
+    background: #d6c1f6;
+    cursor: pointer;
+  }
 }
 
 .input {
