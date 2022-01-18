@@ -45,8 +45,12 @@ const DayField:FC<DayFieldsProps> = ({
   };
 
   const changeHoursHandler = () => {
-    changeHrs(day, inputValue);
-    setChangeHours(false);
+    if (inputValue === hours) {
+      setChangeHours(false);
+    } else {
+      changeHrs(day, inputValue);
+      setChangeHours(false);
+    }
   };
 
   const openHoursEditor = () => {

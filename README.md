@@ -2,6 +2,14 @@
 
 Users can select a timesheet filtered by an employee name and a week, and edit hours worked for selected employee and week.
 
+You can see a working project here - https://timesheet-entries.netlify.app/
+
+---
+
+# Description 
+
+
+
 ---
 
 ## Available Scripts
